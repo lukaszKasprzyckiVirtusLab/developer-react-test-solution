@@ -1,46 +1,73 @@
-# Getting Started with Create React App
+## Developer Skills Assessment
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+1. Install Node
 
-## Available Scripts
+2. Clone this repository to your local machine
 
-In the project directory, you can run:
+3. Install Visual Studio Code (recommended)
 
-### `npm start`
+4. Install the node package files
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- To install the package files
+  Run
+  `>npm install`
+  from the root folder of the cloned repository
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+5. Start the http server
 
-### `npm test`
+- To start the http server
+  Run
+  `>npm start`
+  from the root folder of the cloned repository
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+6. Open the application in your web browser
 
-### `npm run build`
+- To view the application please open the following url
+  http://localhost:3000/
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Default web page
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+![Default page](default.png)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Your task
 
-### `npm run eject`
+Using the provided skeleton React application, please create a heatmap using highcharts and handsontable.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- [highcharts](https://www.highcharts.com/)
+- [handsontable](https://handsontable.com/)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+You will need to modify the files in the heatmap widget folder (./widget/heatmap).
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+1. Modify the HightchartsWidget to change the Material UI table to a highcharts heatmap.
+2. Modify the HandsontableWidget to change the Material UI table to a handsontable that resembles a heatmap. (You do not need to show a legend with the handsontable heatmap.)
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+**Instructions**
 
-## Learn More
+1. You do not need to follow implemented architecture approach. You are able implement the architecture you think would be good in this case.
+2. Do not use ClassComponents, use functional + react hooks instead
+3. Do not change the structure of dataSource files
+4. Use MaterialUI as design system library
+5. Use ContextAPI instead of redux for a global state management (if needed).
+6. Your solution should be scalable, please, implement it according to idea that application will grow
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Example heatmap
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+![Heatmap](https://www.displayr.com/wp-content/uploads/2018/09/rat-burrough-heatmap-1.png)
+
+### Bonus tasks
+
+If after main task you still have some time, you can implement bonus tasks.
+Please, do not start with the bonus tasks till you finish the main one.
+
+#### Data Sources
+
+There are 3 buttons in the appbar of the app (Versions, Products, Regions).
+These buttons match the names of dataSource files (./src/dataSources).
+
+1. Implement data source file switch based on selected button in appbar
+2. All related components should react on data source change an rerender with data from relevant data source file
+3. Selected data source should be highlighted in appbar
+
+#### Custom Heatmap Table
+
+Implement custom heatmap table based on Material UI Table Component and render it at first postion on the main screen
