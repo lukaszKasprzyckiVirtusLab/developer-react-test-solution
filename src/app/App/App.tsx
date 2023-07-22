@@ -1,5 +1,4 @@
-import React from "react";
-import { HighchartsWidget, HandsontableWidget } from "./widgets";
+import React, { useState } from "react";
 import {
   Alert,
   AppBar,
@@ -11,10 +10,23 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import * as dataSource from "./dataSources/versions.json";
-const { tableHeaders, tableData } = dataSource;
+import { HandsOnTableWidget, HighchartsWidget } from "../../widgets";
+import { ButtonVariant, DataSource } from "./App.constants";
+import { getWidgetData } from "./App.helpers";
 
-function App() {
+const { VERSIONS, REGIONS, PRODUCTS } = DataSource;
+
+const App = () => {
+  const [dataSource, setDataSource] = useState(VERSIONS);
+  const setButtonVariant = (
+    dataSourceId: DataSource,
+    selectedDataSource: DataSource
+  ) =>
+    dataSourceId === selectedDataSource
+      ? ButtonVariant.CONTAINED
+      : ButtonVariant.TEXT;
+  const { tableHeaders, tableData } = getWidgetData(dataSource);
+
   return (
     <Box className="App">
       <AppBar position="static">
@@ -35,13 +47,26 @@ function App() {
             >
               Data Source:
             </Typography>
-            <Button variant="contained" size="small">
+            <Button
+              variant={setButtonVariant(VERSIONS, dataSource)}
+              onClick={() => setDataSource(VERSIONS)}
+              size="small"
+            >
               Versions
             </Button>
-            <Button size="small" disabled sx={{ margin: "0 15px" }}>
+            <Button
+              variant={setButtonVariant(PRODUCTS, dataSource)}
+              onClick={() => setDataSource(PRODUCTS)}
+              size="small"
+              sx={{ margin: "0 15px" }}
+            >
               Products
             </Button>
-            <Button size="small" disabled>
+            <Button
+              variant={setButtonVariant(REGIONS, dataSource)}
+              onClick={() => setDataSource(REGIONS)}
+              size="small"
+            >
               Regions
             </Button>
           </Box>
@@ -84,7 +109,7 @@ function App() {
                 handsontable
               </Link>
             </Alert>
-            <HandsontableWidget
+            <HandsOnTableWidget
               tableHeaders={tableHeaders}
               tableData={tableData}
             />
@@ -93,6 +118,6 @@ function App() {
       </Container>
     </Box>
   );
-}
+};
 
 export default App;
