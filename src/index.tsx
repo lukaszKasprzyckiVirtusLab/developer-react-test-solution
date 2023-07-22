@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import App from "./app/App/App";
+import App from "./App/App";
 import reportWebVitals from "./reportWebVitals";
 import { darkTheme } from "./theme";
 
