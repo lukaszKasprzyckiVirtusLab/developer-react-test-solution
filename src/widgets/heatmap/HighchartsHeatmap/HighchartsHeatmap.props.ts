@@ -1,7 +1,7 @@
 export interface HighchartsHeatmapProps {
-    columns: string[],
-    rows: (string | number) [][],
-    data: number[][]
-    xAxisTitle?: string,
-    yAxisTitle?: string
+  columns: string[];
+  rows: string[];
+  data: number[][];
+  xAxisTitle?: string;
+  yAxisTitle?: string;
 }

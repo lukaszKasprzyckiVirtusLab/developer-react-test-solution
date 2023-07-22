@@ -10,7 +10,8 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import { HandsOnTableWidget, HighchartsWidget } from "../../widgets";
+import HandsOnTableWidget from "../../widgets/HandsOnTableWidget/HandsOnTableWidget";
+import HighchartsWidget from "../../widgets/HighchartsWidget/HighchartsWidget";
 import { ButtonVariant, DataSource } from "./App.constants";
 import { getWidgetData } from "./App.helpers";
 
@@ -25,6 +26,7 @@ const App = () => {
     dataSourceId === selectedDataSource
       ? ButtonVariant.CONTAINED
       : ButtonVariant.TEXT;
+
   const { tableHeaders, tableData } = getWidgetData(dataSource);
 
   return (

@@ -1,10 +1,10 @@
 import React from "react";
-import { HeatmapProps } from "../heatmap";
-import Widget from "../heatmap/shared/Widget/Widget";
+import Widget from "../shared/Widget/Widget";
 import HighchartsHeatmap from "../heatmap/HighchartsHeatmap/HighchartsHeatmap";
-import { extractRowsData } from "../heatmap/shared/utils";
+import { extractRowsData } from "../shared/utils";
+import { WidgetsProps } from "../Widgets.props";
 
-export const HighchartsWidget = ({ tableData, tableHeaders }: HeatmapProps) => {
+const HighchartsWidget = ({ tableData, tableHeaders }: WidgetsProps) => {
   const [yAxisTitle, ...columns] = tableHeaders;
   const [rowsNames, rowsData] = extractRowsData(tableData);
 
@@ -19,3 +19,5 @@ export const HighchartsWidget = ({ tableData, tableHeaders }: HeatmapProps) => {
     </Widget>
   );
 };
+
+export default HighchartsWidget;

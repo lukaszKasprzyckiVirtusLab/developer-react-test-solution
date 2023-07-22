@@ -2,18 +2,20 @@ import React from "react";
 import { HotTable } from "@handsontable/react";
 import { registerAllModules } from "handsontable/registry";
 import chroma from "chroma-js";
-import { CellProperties } from "handsontable/settings";
 import Core from "handsontable/core";
-import { colors } from "../shared/colors";
-import { extractRowsData } from "../shared/utils";
-import { calculatePointOnHeatmapScale, reverseArray } from "./HandsOnTableHeatmap.utils";
-import { HeatmapProps } from "../Heatmap.props";
+import { colors } from "../../shared/colors";
+import { extractRowsData } from "../../shared/utils";
+import {
+  calculatePointOnHeatmapScale,
+  reverseArray,
+} from "./HandsOnTableHeatmap.utils";
+import { WidgetsProps } from "../../Widgets.props";
 
 import "handsontable/dist/handsontable.full.css";
 
 registerAllModules();
 
-const HandsOnTableHeatmap = ({ tableData, tableHeaders }: HeatmapProps) => {
+const HandsOnTableHeatmap = ({ tableData, tableHeaders }: WidgetsProps) => {
   const [, data] = extractRowsData(tableData);
 
   const calculateColor = (value: string) => {
@@ -21,12 +23,24 @@ const HandsOnTableHeatmap = ({ tableData, tableHeaders }: HeatmapProps) => {
     const min = Math.min(...(data.flat() as number[]));
     const max = Math.max(...(data.flat() as number[]));
 
-    const pointOnHeatmapScale = calculatePointOnHeatmapScale(min, max, parseInt(value, 10));
+    const pointOnHeatmapScale = calculatePointOnHeatmapScale(
+      min,
+      max,
+      parseInt(value, 10)
+    );
     return heatmapScale(pointOnHeatmapScale).hex();
   };
 
-  function cellRenderer(instance: Core, td: HTMLTableCellElement, row: number, column: number, prop: string | number, value: string, _: CellProperties) {
+  function cellRenderer(
+    instance: Core,
+    td: HTMLTableCellElement,
+    row: number,
+    column: number,
+    _: string | number,
+    value: string
+  ) {
     if (column === 0 || row === 0) {
+      /* eslint-disable no-param-reassign */
       td.style.background = colors.minColor;
       td.innerText = value;
       td.style.textAlign = "center";
@@ -37,6 +51,7 @@ const HandsOnTableHeatmap = ({ tableData, tableHeaders }: HeatmapProps) => {
       td.innerText = "";
       td.style.border = `0.5px solid ${colors.maxColor}`;
     }
+    /* eslint-enable no-param-reassign */
   }
 
   return (
