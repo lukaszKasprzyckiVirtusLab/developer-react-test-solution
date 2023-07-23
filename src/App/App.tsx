@@ -10,8 +10,8 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import HandsOnTableWidget from "../widgets/HandsOnTableWidget/HandsOnTableWidget";
-import HighchartsWidget from "../widgets/HighchartsWidget/HighchartsWidget";
+import HandsOnTableWidget from "../heatmaps/HandsOnTableHeatmap/HandsOnTableHeatmap";
+import HighchartsWidget from "../heatmaps/HighchartsHeatmap/HighchartsHeatmap";
 import { ButtonVariant, DataSource } from "./App.constants";
 import { getWidgetData } from "./App.helpers";
 

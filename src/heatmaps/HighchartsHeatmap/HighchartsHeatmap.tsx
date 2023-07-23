@@ -2,24 +2,25 @@ import React, { useEffect, useState } from "react";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import HighchartsHeatmap from "highcharts/modules/heatmap";
-import { HighchartsHeatmapProps } from "./HighchartsHeatmap.props";
 import { parseDataToProperFormat } from "./HighchartsHeatmap.utils";
-import { colors } from "../../shared/colors";
+import {
+  extractRowsData,
+  useHighchartResizeStyles,
+  sharedColors,
+  HeatmapProps,
+} from "../shared";
 
 HighchartsHeatmap(Highcharts);
 
-const HighchartHeatmap = ({
-  columns,
-  rows,
-  yAxisTitle,
-  xAxisTitle,
-  data,
-}: HighchartsHeatmapProps) => {
+const HighchartHeatmap = ({ tableData, tableHeaders }: HeatmapProps) => {
+  const [yAxisTitle, ...columns] = tableHeaders;
+  const [rows, data] = extractRowsData(tableData);
   const [chartData, setCharData] = useState<number[][]>([]);
+  const resizeStyles = useHighchartResizeStyles();
 
   useEffect(() => {
     setCharData(parseDataToProperFormat(data));
-  }, [data]);
+  }, []);
 
   const options = {
     chart: {
@@ -32,7 +33,6 @@ const HighchartHeatmap = ({
     xAxis: {
       categories: columns,
       title: {
-        text: xAxisTitle,
         style: {
           fontSize: 16,
         },
@@ -45,20 +45,21 @@ const HighchartHeatmap = ({
         text: yAxisTitle,
         style: {
           fontSize: 16,
+          overflow: "ellipsis",
         },
       },
     },
     colorAxis: {
       min: Math.min(...chartData.flat()),
       max: Math.max(...chartData.flat()),
-      minColor: colors.minColor,
-      maxColor: colors.maxColor,
+      minColor: sharedColors.minColor,
+      maxColor: sharedColors.maxColor,
     },
     legend: {
       align: "right",
       layout: "vertical",
       verticalAlign: "top",
-      y: 10,
+      y: 40,
       symbolHeight: 310,
     },
     tooltip: false,
@@ -73,7 +74,15 @@ const HighchartHeatmap = ({
     ],
   };
 
-  return <HighchartsReact highcharts={Highcharts} options={options} />;
+  return (
+    <HighchartsReact
+      highcharts={Highcharts}
+      options={options}
+      containerProps={{
+        style: resizeStyles,
+      }}
+    />
+  );
 };
 
 export default HighchartHeatmap;

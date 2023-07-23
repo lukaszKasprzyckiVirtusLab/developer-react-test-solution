@@ -3,23 +3,30 @@ import { HotTable } from "@handsontable/react";
 import { registerAllModules } from "handsontable/registry";
 import chroma from "chroma-js";
 import Core from "handsontable/core";
-import { colors } from "../../shared/colors";
-import { extractRowsData } from "../../shared/utils";
+import {
+  extractRowsData,
+  useHighchartResizeStyles,
+  sharedColors,
+  HeatmapProps,
+} from "../shared";
 import {
   calculatePointOnHeatmapScale,
   reverseArray,
 } from "./HandsOnTableHeatmap.utils";
-import { WidgetsProps } from "../../Widgets.props";
 
 import "handsontable/dist/handsontable.full.css";
 
 registerAllModules();
 
-const HandsOnTableHeatmap = ({ tableData, tableHeaders }: WidgetsProps) => {
+const HandsOnTableHeatmap = ({ tableData, tableHeaders }: HeatmapProps) => {
   const [, data] = extractRowsData(tableData);
+  const { width } = useHighchartResizeStyles();
 
   const calculateColor = (value: string) => {
-    const heatmapScale = chroma.scale([colors.minColor, colors.maxColor]);
+    const heatmapScale = chroma.scale([
+      sharedColors.minColor,
+      sharedColors.maxColor,
+    ]);
     const min = Math.min(...(data.flat() as number[]));
     const max = Math.max(...(data.flat() as number[]));
 
@@ -41,7 +48,7 @@ const HandsOnTableHeatmap = ({ tableData, tableHeaders }: WidgetsProps) => {
   ) {
     if (column === 0 || row === 0) {
       /* eslint-disable no-param-reassign */
-      td.style.background = colors.minColor;
+      td.style.background = sharedColors.minColor;
       td.innerText = value;
       td.style.textAlign = "center";
       td.style.verticalAlign = "middle";
@@ -49,7 +56,7 @@ const HandsOnTableHeatmap = ({ tableData, tableHeaders }: WidgetsProps) => {
     } else {
       td.style.background = calculateColor(value);
       td.innerText = "";
-      td.style.border = `0.5px solid ${colors.maxColor}`;
+      td.style.border = `0.5px solid ${sharedColors.maxColor}`;
     }
     /* eslint-enable no-param-reassign */
   }
@@ -58,7 +65,7 @@ const HandsOnTableHeatmap = ({ tableData, tableHeaders }: WidgetsProps) => {
     <HotTable
       data={[tableHeaders, ...reverseArray(tableData)]}
       stretchH="all"
-      width="100%"
+      width={width}
       height="auto"
       rowHeights="80%"
       colWidths="20%"
